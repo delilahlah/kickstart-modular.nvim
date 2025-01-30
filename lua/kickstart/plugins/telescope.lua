@@ -63,6 +63,14 @@ return {
         -- },
         -- pickers = {}
         extensions = {
+          {
+            'ANGkeith/telescope-terraform-doc.nvim',
+            ft = { 'terraform', 'hcl' },
+          },
+          {
+            'cappyzawa/telescope-terraform.nvim',
+            ft = { 'terraform', 'hcl' },
+          },
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },

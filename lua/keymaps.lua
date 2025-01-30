@@ -31,6 +31,26 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+vim.keymap.set('i', 'qq', '<Esc>', { noremap = true, silent = true })
+vim.keymap.set('v', 'qq', '<Esc>', { noremap = true, silent = true })
+-- Disable mouse horizontal scrolling
+vim.keymap.set('', '<ScrollWheelLeft>', '<Nop>')
+vim.keymap.set('', '<ScrollWheelRight>', '<Nop>')
+-- Send some stuff to the black hole register by default
+vim.keymap.set('n', 'di', '"_di', { noremap = true, silent = true })
+vim.keymap.set('n', 'dw', '"_dw', { noremap = true, silent = true })
+vim.keymap.set('n', 'diw', '"_diw', { noremap = true, silent = true })
+-- I miss acme
+vim.keymap.set('x', '<leader>tts', ':ToggleTermSendVisualSelection<CR>', { noremap = true, silent = true, desc = 'Send selection to ToggleTerm' })
+vim.api.nvim_set_keymap(
+  'n',
+  'lg',
+  "<cmd>lua require('toggleterm.terminal').Terminal:new({ cmd = 'lazygit', hidden = true, direction = 'float' }):toggle()<CR>",
+  { noremap = true, silent = true }
+)
+vim.api.nvim_set_keymap('n', 'tt', '<cmd>ToggleTerm<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('x', 'tts', '<cmd>ToggleTermSendVisualSelection<CR>', { noremap = true, silent = true })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -42,6 +62,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+
+vim.api.nvim_create_autocmd('VimEnter', {
+  callback = function()
+    vim.cmd 'Neotree'
   end,
 })
 
